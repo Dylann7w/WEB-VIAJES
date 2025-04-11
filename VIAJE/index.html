@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aventuras por España</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #d1f3ff, #ffffff);
+      overflow-x: hidden;
+    }
+
+    .wave-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .header {
+      position: relative;
+      height: 220px;
+      background: linear-gradient(to bottom, #ffa726, #ffeb3b);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      font-weight: bold;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+      color: #fff;
+    }
+
+    .header p {
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+      color: #fff8e1;
+    }
+
+    main {
+      padding: 3rem 1rem;
+      z-index: 2;
+      position: relative;
+    }
+
+    .destinos {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      transition: transform 0.3s ease;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+    }
+
+    .card a {
+      text-decoration: none;
+      color: #0277bd;
+      display: block;
+      padding: 1rem;
+    }
+
+    .card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      background: linear-gradient(to right, #0288d1, #01579b);
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      margin: 0.3rem 0;
+    }
+
+    footer a {
+      color: #ffecb3;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media screen and (max-width: 900px) {
+      .destinos {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media screen and (max-width: 500px) {
+      .destinos {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="waveCanvas" class="wave-canvas"></canvas>
+
+  <header class="header">
+    <h1>Aventuras por España</h1>
+    <p>Explora los destinos más vibrantes del verano</p>
+  </header>
+
+  <main>
+    <section class="destinos">
+        <div class="card"><a href="salou.html"><img src="images/salou.jpg"><h3>Salou</h3></a></div>
+        <div class="card"><a href="ibiza.html"><img src="images/ibiza.jpg"><h3>Ibiza</h3></a></div>
+        <div class="card"><a href="benalmadena.html"><img src="images/benalmadena.jpg"><h3>Benalmádena</h3></a></div>
+        <div class="card"><a href="san-sebastian.html"><img src="images/sansebastian.jpg"><h3>San Sebastián</h3></a></div>
+        <div class="card"><a href="valencia.html"><img src="images/valencia.jpg"><h3>Valencia</h3></a></div>
+        <div class="card"><a href="malaga.html"><img src="images/malaga.jpg"><h3>Málaga</h3></a></div>
+        <div class="card"><a href="cadiz.html"><img src="images/cadiz.jpg"><h3>Cádiz</h3></a></div>
+        <div class="card"><a href="barcelona.html"><img src="images/barcelona.jpg"><h3>Barcelona</h3></a></div>
+        <div class="card"><a href="mallorca.html"><img src="images/mallorca.jpg"><h3>Mallorca</h3></a></div>
+      </section>
+      
+  </main>
+
+  <footer>
+    <p>✈️ Hecho con pasión viajera — Descubre, vive, comparte 🌍</p>
+    <p>&copy; 2025 Aventuras por España | Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById("waveCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let width = window.innerWidth;
+    let height = 150;
+    canvas.width = width;
+    canvas.height = height;
+
+    let t = 0;
+    function drawWave() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.beginPath();
+      ctx.moveTo(0, height / 2);
+
+      for (let x = 0; x < width; x++) {
+        const y = 20 * Math.sin((x + t) * 0.02) + 30;
+        ctx.lineTo(x, y);
+      }
+
+      ctx.lineTo(width, height);
+      ctx.lineTo(0, height);
+      ctx.closePath();
+      ctx.fillStyle = "#4fc3f7";
+      ctx.fill();
+
+      t += 1.5;
+      requestAnimationFrame(drawWave);
+    }
+
+    drawWave();
+
+    window.addEventListener("resize", () => {
+      width = window.innerWidth;
+      canvas.width = width;
+    });
+  </script>
+
+</body>
+</html>
